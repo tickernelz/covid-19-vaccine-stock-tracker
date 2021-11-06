@@ -48,7 +48,6 @@
                                       placeholder="Masukkan Username..."/>
                     <x-adminlte-input value="{{ $data->nama }}" name="nama" label="Nama"
                                       placeholder="Masukkan Nama..."/>
-                    <x-adminlte-input value="{{ $data->nip }}" name="nip" label="NIP" placeholder="Masukkan NIP..."/>
                     <x-adminlte-select2 name="peran" label="Peran" data-placeholder="Pilih Peran...">
                         <option></option>
                         <!-- Required for data-placeholder attribute to work with Select2 plugin -->

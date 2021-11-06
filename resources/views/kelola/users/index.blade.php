@@ -11,7 +11,6 @@
 @php
     $heads = [
         '#',
-        'NIP',
         'Username',
         'Nama',
         'Peran',
@@ -20,7 +19,7 @@
 
 $config = [
     'order' => [[0, 'asc']],
-    'columns' => [null, null, null, null, null, ['orderable' => false, 'className' => 'text-center']],
+    'columns' => [null, null, null, null, ['orderable' => false, 'className' => 'text-center']],
 ];
 @endphp
 
@@ -37,7 +36,6 @@ $config = [
                 @foreach($data as $li)
                     <tr>
                         <td>{!! $loop->iteration !!}</td>
-                        <td>{!! $li->nip !!}</td>
                         <td>{!! $li->username !!}</td>
                         <td>{!! $li->nama !!}</td>
                         <td>{!! $li->roles->first()->name !!}</td>

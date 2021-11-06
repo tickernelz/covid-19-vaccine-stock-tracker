@@ -83,7 +83,7 @@ return [
     |
     */
 
-    'layout_topnav' => true,
+    'layout_topnav' => null,
     'layout_boxed' => null,
     'layout_fixed_sidebar' => null,
     'layout_fixed_navbar' => null,
@@ -259,36 +259,6 @@ return [
                 [
                     'text' => 'Tambah Pengguna',
                     'url' => 'kelola/users/tambah',
-                ],
-            ],
-        ],
-        [
-            'text' => 'Surat Masuk',
-            'icon' => 'fas fa-fw fa-inbox',
-            'can' => 'kelola surat',
-            'submenu' => [
-                [
-                    'text' => 'List Surat Masuk',
-                    'url' => 'kelola/surat/masuk',
-                ],
-                [
-                    'text' => 'Tambah Surat Masuk',
-                    'url' => 'kelola/surat/masuk/tambah',
-                ],
-            ],
-        ],
-        [
-            'text' => 'Surat Keluar',
-            'icon' => 'fas fa-fw fa-paper-plane',
-            'can' => 'kelola surat',
-            'submenu' => [
-                [
-                    'text' => 'List Surat Keluar',
-                    'url' => 'kelola/surat/keluar',
-                ],
-                [
-                    'text' => 'Tambah Surat Keluar',
-                    'url' => 'kelola/surat/keluar/tambah',
                 ],
             ],
         ],
