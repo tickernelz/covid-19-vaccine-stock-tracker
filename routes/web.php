@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('kelola/users/edit/{id}', [UserController::class, 'editindex'])->name('edit.index.user');
         Route::post('kelola/users/edit/{id}/post', [UserController::class, 'edit'])->name('edit.post.user');
         Route::get('kelola/users/hapus/{id}', [UserController::class, 'hapus'])->name('hapus.user');
+    });
+    // Kelola Barang
+    Route::group(['middleware' => ['can:kelola barang']], function () {
+        Route::get('kelola/barang', [BarangController::class, 'index'])->name('index.barang');
+        Route::get('kelola/barang/tambah', [BarangController::class, 'tambahindex'])->name('tambah.index.barang');
+        Route::post('kelola/barang/tambah/post', [BarangController::class, 'tambah'])->name('tambah.post.barang');
+        Route::get('kelola/barang/edit/{id}', [BarangController::class, 'editindex'])->name('edit.index.barang');
+        Route::post('kelola/barang/edit/{id}/post', [BarangController::class, 'edit'])->name('edit.post.barang');
+        Route::get('kelola/barang/hapus/{id}', [BarangController::class, 'hapus'])->name('hapus.barang');
     });
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 });

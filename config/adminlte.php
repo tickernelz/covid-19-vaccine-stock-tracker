@@ -262,6 +262,21 @@ return [
                 ],
             ],
         ],
+        [
+            'text' => 'Jenis Vaksin',
+            'icon' => 'fas fa-fw fa-archive',
+            'can' => 'kelola barang',
+            'submenu' => [
+                [
+                    'text' => 'List Vaksin',
+                    'url' => 'kelola/barang',
+                ],
+                [
+                    'text' => 'Tambah Vaksin',
+                    'url' => 'kelola/barang/tambah',
+                ],
+            ],
+        ],
     ],
 
     /*

@@ -21,6 +21,7 @@ class RoleSeeder extends Seeder
 
         // create permissions
         Permission::create(['name' => 'kelola user']);
+        Permission::create(['name' => 'kelola barang']);
         Permission::create(['name' => 'kelola stok']);
 
         $role1 = Role::create([
@@ -28,12 +29,14 @@ class RoleSeeder extends Seeder
             'guard_name' => 'web',
         ]);
         $role1->givePermissionTo('kelola user');
+        $role1->givePermissionTo('kelola barang');
         $role1->givePermissionTo('kelola stok');
 
         $role2 = Role::create([
             'name' => 'Admin',
             'guard_name' => 'web',
         ]);
+        $role2->givePermissionTo('kelola barang');
         $role2->givePermissionTo('kelola stok');
     }
 }
