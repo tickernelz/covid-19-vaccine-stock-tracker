@@ -42,11 +42,11 @@ $config = [
                         <td>
                             <div class="btn-group btn-group-sm" role="group">
                                 <a type="button" class="btn btn-secondary"
-                                   href="edit/{{$li->id}}">
+                                   href="{{ Request::url() }}/edit/{{$li->id}}">
                                     <i class="fa fa-edit"></i>
                                 </a>
                                 <a type="button" class="btn btn-secondary"
-                                   href="hapus/{{$li->id}}"
+                                   href="{{ Request::url() }}/hapus/{{$li->id}}"
                                    onclick="return confirm('Yakin Mau Dihapus?');">
                                     <i class="fa fa-trash"></i>
                                 </a>
