@@ -277,6 +277,12 @@ return [
                 ],
             ],
         ],
+        [
+            'text' => 'Transaksi',
+            'icon' => 'fas fa-fw fa-retweet',
+            'url' => 'kelola/transaksi',
+            'can' => 'kelola transaksi',
+        ],
     ],
 
     /*

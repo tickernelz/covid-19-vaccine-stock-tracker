@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,16 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('kelola/barang/edit/{id}', [BarangController::class, 'editindex'])->name('edit.index.barang');
         Route::post('kelola/barang/edit/{id}/post', [BarangController::class, 'edit'])->name('edit.post.barang');
         Route::get('kelola/barang/hapus/{id}', [BarangController::class, 'hapus'])->name('hapus.barang');
+    });
+    // Kelola Transaksi
+    Route::group(['middleware' => ['can:kelola transaksi']], function () {
+        Route::get('kelola/transaksi', [TransaksiController::class, 'index'])->name('index.transaksi');
+        Route::get('kelola/transaksi/lihat/{id}', [TransaksiController::class, 'lihat_index'])->name('lihat.index.transaksi');
+        Route::get('kelola/transaksi/lihat/{id}/tambah', [TransaksiController::class, 'tambahindex'])->name('tambah.index.transaksi');
+        Route::post('kelola/transaksi/lihat/{id}/tambah/post', [TransaksiController::class, 'tambah'])->name('tambah.post.transaksi');
+        Route::get('kelola/transaksi/lihat/{barang_id}/edit/{id}', [TransaksiController::class, 'editindex'])->name('edit.index.transaksi');
+        Route::post('kelola/transaksi/lihat/{barang_id}/edit/{id}/post', [TransaksiController::class, 'edit'])->name('edit.post.transaksi');
+        Route::get('kelola/transaksi/lihat/{barang_id}/hapus/{id}', [TransaksiController::class, 'hapus'])->name('hapus.transaksi');
     });
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 });

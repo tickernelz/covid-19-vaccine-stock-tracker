@@ -8,12 +8,6 @@ use Illuminate\Http\Request;
 
 class BarangController extends Controller
 {
-    public function __construct()
-    {
-        setlocale(LC_TIME, 'id_ID');
-        Carbon::setLocale('id');
-    }
-
     public function index()
     {
         // Get Data
@@ -26,6 +20,7 @@ class BarangController extends Controller
 
     public function tambahindex()
     {
+        // Config
         $conf_tgl = [
             'format' => 'DD MMMM YYYY',
             'locale' => 'id',
