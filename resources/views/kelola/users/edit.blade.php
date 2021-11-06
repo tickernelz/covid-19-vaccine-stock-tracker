@@ -23,7 +23,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form action="{{url()->current()}}/post" method="post">
+            <form action="post" method="post">
                 <div class="card-body">
                 @if (Session::has('success'))
                     <div class="alert alert-success alert-dismissible">
