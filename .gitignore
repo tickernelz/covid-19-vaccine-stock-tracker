@@ -4,6 +4,7 @@
 /storage/*.key
 /vendor
 .php-cs-fixer.cache
+.env
 .env.backup
 .phpunit.result.cache
 docker-compose.override.yml

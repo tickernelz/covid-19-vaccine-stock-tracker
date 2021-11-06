@@ -1,10 +1,10 @@
 echo web: vendor/bin/heroku-php-apache2 public/ > Procfile
 git push heroku heroku:master
 heroku config:add APP_DEBUG=true
-heroku config:add APP_KEY=base64:JxuDpr6Zxqj4afNaj/7IovKlHyHaW692eJ89Fo3agJg=
-heroku config:add APP_NAME=kp-rezas
+heroku config:add APP_KEY=base64:V+BnjAFoLcKwvEmN6iWFbZ+D2aqq2QVdPGehZvmf+YE=
+heroku config:add APP_NAME=kp-dani
 heroku config:add APP_ENV=production
-heroku config:add APP_URL=https://kp-rezas.herokuapp.com
+heroku config:add APP_URL=https://kp-dani.herokuapp.com
 heroku addons:create heroku-postgresql:hobby-dev
 heroku pg:credentials:url
 heroku config:add DB_CONNECTION=pgsql
