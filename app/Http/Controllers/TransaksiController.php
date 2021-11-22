@@ -16,7 +16,7 @@ class TransaksiController extends Controller
         $data = Barang::get();
 
         return view('kelola.transaksi.index', compact([
-            'data'
+            'data',
         ]));
     }
 
@@ -113,7 +113,7 @@ class TransaksiController extends Controller
         return back()->with('total', $sum_total);
     }
 
-    public function post_detail_vaksin(Request $request,int $id, string $tanggal)
+    public function post_detail_vaksin(Request $request, int $id, string $tanggal)
     {
         $request->validate([
             'kemasan' => 'required|string',
@@ -149,6 +149,7 @@ class TransaksiController extends Controller
             'tanggal' => $tanggal,
             'data' => $data,
         ];
+
         return Response()->json($response);
     }
 

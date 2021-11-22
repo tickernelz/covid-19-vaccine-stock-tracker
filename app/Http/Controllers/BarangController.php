@@ -13,7 +13,7 @@ class BarangController extends Controller
         $data = Barang::get();
 
         return view('kelola.barang.index', compact([
-            'data'
+            'data',
         ]));
     }
 
@@ -29,7 +29,7 @@ class BarangController extends Controller
         $data = Barang::find($id);
 
         return view('kelola.barang.edit', compact([
-            'data'
+            'data',
         ]));
     }
 
