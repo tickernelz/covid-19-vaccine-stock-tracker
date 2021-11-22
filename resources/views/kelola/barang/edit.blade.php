@@ -24,7 +24,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form action="{{ route('edit.post.barang') }}" method="post">
+            <form action="{{ route('edit.post.barang', $data->id) }}" method="post">
                 <div class="card-body">
                     @if (Session::has('success'))
                         <div class="alert alert-success alert-dismissible">

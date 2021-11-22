@@ -48,11 +48,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => ['can:kelola transaksi']], function () {
         Route::get('kelola/transaksi', [TransaksiController::class, 'index'])->name('index.transaksi');
         Route::get('kelola/transaksi/lihat/{id}', [TransaksiController::class, 'lihat_index'])->name('lihat.index.transaksi');
-        Route::get('kelola/transaksi/lihat/{id}/tambah', [TransaksiController::class, 'tambahindex'])->name('tambah.index.transaksi');
-        Route::post('kelola/transaksi/lihat/{id}/tambah/post', [TransaksiController::class, 'tambah'])->name('tambah.post.transaksi');
-        Route::get('kelola/transaksi/lihat/{barang_id}/edit/{id}', [TransaksiController::class, 'editindex'])->name('edit.index.transaksi');
-        Route::post('kelola/transaksi/lihat/{barang_id}/edit/{id}/post', [TransaksiController::class, 'edit'])->name('edit.post.transaksi');
-        Route::get('kelola/transaksi/lihat/{barang_id}/hapus/{id}', [TransaksiController::class, 'hapus'])->name('hapus.transaksi');
+        Route::get('kelola/transaksi/lihat/cari/{id}', [TransaksiController::class, 'lihat_cari'])->name('lihat.cari.transaksi');
+        Route::post('kelola/transaksi/lihat/cari/detail_vaksin/{id}/{tanggal}', [TransaksiController::class, 'post_detail_vaksin'])->name('lihat.cari.detail_vaksin.transaksi');
+        Route::post('kelola/transaksi/lihat/cari/tambah_transaksi/{id}', [TransaksiController::class, 'tambah_transaksi'])->name('lihat.tambah.transaksi');
+        Route::post('kelola/transaksi/lihat/cari/edit_transaksi', [TransaksiController::class, 'edit_transaksi'])->name('lihat.edit.transaksi');
+        Route::get('get-transaksi', [TransaksiController::class, 'get_transaksi'])->name('lihat.get_transaksi');
+        Route::post('hitung-stok/{id}', [TransaksiController::class, 'hitung_stok'])->name('lihat.hitung_stok');
+        Route::get('hapus-transaksi/{id}', [TransaksiController::class, 'hapus'])->name('hapus.transaksi');
     });
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 });

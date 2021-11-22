@@ -11,17 +11,13 @@
 @php
     $heads = [
         '#',
-        'Tanggal Masuk',
         'Nama Vaksin',
-        'Kemasan',
-        'No Batch',
-        'Expired Date',
         'Aksi',
     ];
 
 $config = [
     'order' => [[0, 'asc']],
-    'columns' => [null, null, null, null, null, null, ['orderable' => false, 'className' => 'text-center']],
+    'columns' => [null, null, ['orderable' => false, 'className' => 'text-center']],
 ];
 @endphp
 
@@ -38,14 +34,10 @@ $config = [
                 @foreach($data as $li)
                     <tr>
                         <td>{!! $loop->iteration !!}</td>
-                        <td>{!! \Carbon\Carbon::parse($li->tanggal_masuk)->formatLocalized('%d %B %Y'); !!}</td>
                         <td>{!! $li->nama !!}</td>
-                        <td>{!! $li->kemasan !!}</td>
-                        <td>{!! $li->batch !!}</td>
-                        <td>{!! \Carbon\Carbon::parse($li->ed)->formatLocalized('%d %B %Y'); !!}</td>
                         <td>
                             <a type="button" class="btn btn-sm btn-secondary"
-                               href="{{ Request::url() }}/lihat/{{$li->id}}">
+                               href="{{ route('lihat.index.transaksi', $li->id) }}">
                                 <i class="fa fa-file"></i>
                                 Kelola Transaksi
                             </a>

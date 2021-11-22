@@ -15,7 +15,7 @@ class CreateTransaksisTable extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Barang::class);
+            $table->foreignIdFor(\App\Models\DetailVaksin::class)->constrained()->onDelete('cascade');
             $table->date('tanggal');
             $table->string('dokumen')->nullable();
             $table->text('dari')->nullable();
