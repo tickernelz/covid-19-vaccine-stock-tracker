@@ -24,7 +24,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form action="{{url()->current()}}/post" method="post">
+            <form action="{{ route('edit.post.barang') }}" method="post">
                 <div class="card-body">
                     @if (Session::has('success'))
                         <div class="alert alert-success alert-dismissible">
@@ -45,30 +45,8 @@
                         </div>
                     @endif
                     @csrf
-                    <x-adminlte-input-date value="{{ $data->tanggal_masuk->formatLocalized('%d %B %Y') }}" name="tanggal_masuk" :config="$conf_tgl"
-                                           placeholder="Masukkan Tanggal Masuk..."
-                                           label="Tanggal Masuk">
-                        <x-slot name="appendSlot">
-                            <div class="input-group-text bg-dark">
-                                <i class="fas fa-calendar-day"></i>
-                            </div>
-                        </x-slot>
-                    </x-adminlte-input-date>
                     <x-adminlte-input value="{{ $data->nama }}" name="nama" label="Nama"
                                       placeholder="Masukkan Nama Vaksin..."/>
-                    <x-adminlte-input value="{{ $data->kemasan }}" name="kemasan" label="Kemasan"
-                                      placeholder="Masukkan Kemasan..."/>
-                    <x-adminlte-input value="{{ $data->batch }}" name="batch" label="No Batch" type="number"
-                                      placeholder="Masukkan No Batch..."/>
-                    <x-adminlte-input-date value="{{ $data->ed->formatLocalized('%d %B %Y') }}" name="ed"
-                                           :config="$conf_tgl" placeholder="Masukkan Tanggal Expired..."
-                                           label="Tanggal Expired">
-                        <x-slot name="appendSlot">
-                            <div class="input-group-text bg-dark">
-                                <i class="fas fa-calendar-day"></i>
-                            </div>
-                        </x-slot>
-                    </x-adminlte-input-date>
                 </div>
                 <!-- /.card-body -->
 
