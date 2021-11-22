@@ -11,26 +11,6 @@
 @section('plugins.TempusDominus', true)
 
 @php
-    $heads = [
-        '#',
-        'Tanggal',
-        'Dokumen',
-        'Dari',
-        'Kepada',
-        'Penerimaan',
-        'Pengeluaran',
-        'Petugas',
-        'Penerima',
-        'No. HP',
-        'Keterangan',
-        'Aksi',
-    ];
-
-$config = [
-    'order' => [[0, 'asc']],
-    'columns' => [null, null, null, null, null, null, null, null, null, null, null, ['orderable' => false, 'className' => 'text-center']],
-];
-
 $config_stok = [
         "placeholder" => "Pilih Bulan...",
         "allowClear" => true,
@@ -238,7 +218,23 @@ $config_stok = [
                         {{ Session::get('success-transaksi') }}
                     </div>
                 @endif
-                <x-adminlte-datatable id="table" :config="$config" :heads="$heads" hoverable bordered beautify>
+                <table id="table-transaksi" class="table table-bordered table-hover dataTable no-footer"
+                       role="grid">
+                    <thead>
+                    <th>#</th>
+                    <th>Tanggal</th>
+                    <th>Dokumen</th>
+                    <th>Dari</th>
+                    <th>Kepada</th>
+                    <th>Penerimaan</th>
+                    <th>Pengeluaran</th>
+                    <th>Petugas</th>
+                    <th>Penerima</th>
+                    <th>No. HP</th>
+                    <th>Keterangan</th>
+                    <th>Aksi</th>
+                    </thead>
+                    <tbody>
                     @foreach($transaksi as $li)
                         <tr>
                             <td>{!! $loop->iteration !!}</td>
@@ -267,7 +263,8 @@ $config_stok = [
                             </td>
                         </tr>
                     @endforeach
-                </x-adminlte-datatable>
+                    </tbody>
+                </table>
             </div>
             <!-- /.card-body -->
         </div>
@@ -276,6 +273,54 @@ $config_stok = [
 
 @push('js')
     <script>
+        $(document).ready(function () {
+            $('#table-transaksi').DataTable({
+                "order": [[0, "asc"]],
+                "columns": [null, null, null, null, null, null, null, null, null, null, null, {
+                    "orderable": false,
+                    "className": "text-center"
+                }],
+                "dom": "\u003C\u0022row\u0022 \u003C\u0022col-sm-6\u0022 B\u003E \u003C\u0022col-sm-6\u0022 f\u003E \u003E\n                \u003C\u0022row\u0022 \u003C\u0022col-12\u0022 tr\u003E \u003E\n                \u003C\u0022row\u0022 \u003C\u0022col-sm-5\u0022 i\u003E \u003C\u0022col-sm-7\u0022 p\u003E \u003E",
+                "buttons": {
+                    "dom": {"button": {"className": "btn"}},
+                    "buttons": [{"extend": "pageLength", "className": "btn-default"}, {
+                        "extend": "print",
+                        "className": "btn-default",
+                        "title": "Laporan Transaksi Vaksin {{ $barang->nama ?? '' }}",
+                        "messageTop": "Bulan {{ $tanggal ?? ''  }}",
+                        "text": "\u003Ci class=\u0022fas fa-fw fa-lg fa-print\u0022\u003E\u003C\/i\u003E",
+                        "titleAttr": "Print",
+                        "exportOptions": {"columns": ":not(:last-child)"}
+                    }, {
+                        "extend": "csv",
+                        "className": "btn-default",
+                        "title": "Laporan Transaksi Vaksin {{ $barang->nama ?? '' }}",
+                        "messageTop": "Bulan {{ $tanggal ?? ''  }}",
+                        "text": "\u003Ci class=\u0022fas fa-fw fa-lg fa-file-csv text-primary\u0022\u003E\u003C\/i\u003E",
+                        "titleAttr": "Export to CSV",
+                        "exportOptions": {"columns": ":not(:last-child)"}
+                    }, {
+                        "extend": "excel",
+                        "className": "btn-default",
+                        "title": "Laporan Transaksi Vaksin {{ $barang->nama ?? '' }}",
+                        "messageTop": "Bulan {{ $tanggal ?? ''  }}",
+                        "text": "\u003Ci class=\u0022fas fa-fw fa-lg fa-file-excel text-success\u0022\u003E\u003C\/i\u003E",
+                        "titleAttr": "Export to Excel",
+                        "exportOptions": {"columns": ":not(:last-child)"}
+                    }, {
+                        "extend": "pdf",
+                        "className": "btn-default",
+                        "orientation": 'landscape',
+                        "title": "Laporan Transaksi Vaksin {{ $barang->nama ?? '' }}",
+                        "messageTop": "Bulan {{ $tanggal ?? ''  }}",
+                        "text": "\u003Ci class=\u0022fas fa-fw fa-lg fa-file-pdf text-danger\u0022\u003E\u003C\/i\u003E",
+                        "titleAttr": "Export to PDF",
+                        "exportOptions": {"columns": ":not(:last-child)"}
+                    }]
+                }
+            });
+        });
+
         function editFunc(id) {
             $.ajax({
                 type: "GET",
