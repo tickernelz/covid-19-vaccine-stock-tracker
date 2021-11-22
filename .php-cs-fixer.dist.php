@@ -1,10 +1,11 @@
 <?php
 
-use PhpCsFixer\Finder;
 use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
 
 $rules = [
     'array_syntax' => ['syntax' => 'short'],
+
     'no_unused_imports' => true,
     'blank_line_after_namespace' => true,
     'blank_line_after_opening_tag' => true,
@@ -33,7 +34,7 @@ $rules = [
     'magic_constant_casing' => true,
     'method_argument_space' => true,
     'native_function_casing' => true,
-    # 'no_alias_functions' => true, // 禁用别名函数 risky
+    'no_alias_functions' => true,
     'no_extra_blank_lines' => [
         'tokens' => [
             'extra',
@@ -64,7 +65,7 @@ $rules = [
     'no_trailing_comma_in_singleline_array' => true,
     'no_trailing_whitespace' => true,
     'no_trailing_whitespace_in_comment' => true,
-    # 'no_unreachable_default_argument_value' => true, // 有默认值的参数不能在没有默认值的参数前 risky
+    'no_unreachable_default_argument_value' => true,
     'no_useless_return' => true,
     'no_whitespace_before_comma_in_array' => true,
     'no_whitespace_in_blank_line' => true,
@@ -82,7 +83,7 @@ $rules = [
     'phpdoc_trim' => true,
     'phpdoc_types' => true,
     'phpdoc_var_without_name' => true,
-    # 'self_accessor' => true, // 类内部应该优先用 self 代替类名调用 risky
+    'self_accessor' => true,
     'short_scalar_cast' => true,
     'simplified_null_return' => false, // disabled by Shift
     'single_blank_line_at_eof' => true,
@@ -107,7 +108,7 @@ $rules = [
     'general_phpdoc_tag_rename' => true,
     'phpdoc_inline_tag_normalizer' => true,
     'phpdoc_tag_type' => true,
-    # 'psr_autoloading' => true, // risky
+    'psr_autoloading' => true,
     'trailing_comma_in_multiline' => ['elements' => ['arrays']],
 
     // php-cs-fixer 3: Changed options
@@ -144,24 +145,25 @@ $rules = [
     'visibility_required' => [
         'elements' => ['property', 'method', 'const'],
     ],
+
 ];
 
-$projectPath = __DIR__;
 $finder = Finder::create()
-                ->in([
-                    $projectPath . '/app',
-                    $projectPath . '/config',
-                    $projectPath . '/database',
-                    $projectPath . '/resources',
-                    $projectPath . '/routes',
-                    $projectPath . '/tests',
-                ])
-                ->name('*.php')
-                ->notName('*.blade.php')
-                ->ignoreDotFiles(true)
-                ->ignoreVCS(true);
+    ->in([
+        __DIR__.'/app',
+        __DIR__.'/config',
+        __DIR__.'/database',
+        __DIR__.'/resources',
+        __DIR__.'/routes',
+        __DIR__.'/tests',
+    ])
+    ->name('*.php')
+    ->notName('*.blade.php')
+    ->ignoreDotFiles(true)
+    ->ignoreVCS(true);
 
-return (new Config())->setFinder($finder)
-                     ->setRules($rules)
-                     ->setRiskyAllowed(false)
-                     ->setUsingCache(true);
+return (new Config())
+    ->setFinder($finder)
+    ->setRules($rules)
+    ->setRiskyAllowed(true)
+    ->setUsingCache(true);
