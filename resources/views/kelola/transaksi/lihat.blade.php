@@ -11,10 +11,10 @@
 @section('plugins.TempusDominus', true)
 
 @php
-$config_stok = [
-        "placeholder" => "Pilih Bulan...",
-        "allowClear" => true,
-    ];
+    $config_stok = [
+            "placeholder" => "Pilih Bulan...",
+            "allowClear" => true,
+        ];
 @endphp
 
 @section('content')
@@ -94,41 +94,18 @@ $config_stok = [
                         </div>
                     @endif
                     <p class="lead">Vaksin {{ $barang->nama ?? ''  }}</p>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <tbody>
-                            <tr>
-                                <th>Kemasan:</th>
-                                <td>
-                                    <x-adminlte-input value="{{ $detail_vaksin->kemasan ?? '' }}" name="kemasan"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>No Batch:</th>
-                                <td>
-                                    <x-adminlte-input value="{{ $detail_vaksin->batch ?? '' }}" name="batch"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Expired Date:</th>
-                                <td>
-                                    <x-adminlte-input-date value="{{ $detail_vaksin->ed ?? '' }}" name="ed"
-                                                           :config="$conf_tgl">
-                                        <x-slot name="appendSlot">
-                                            <div class="input-group-text bg-dark">
-                                                <i class="fas fa-calendar-day"></i>
-                                            </div>
-                                        </x-slot>
-                                    </x-adminlte-input-date>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Total Stok:</th>
-                                <td>{{ $total ?? ''  }}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <hr>
+                    <x-adminlte-input value="{{ $detail_vaksin->kemasan ?? '' }}" label="Kemasan" name="kemasan"/>
+                    <x-adminlte-input value="{{ $detail_vaksin->batch ?? '' }}" label="No. Batch" name="batch"/>
+                    <x-adminlte-input-date value="{{ $detail_vaksin->ed ?? '' }}" label="Tanggal Kadaluarsa" name="ed"
+                                           :config="$conf_tgl">
+                        <x-slot name="appendSlot">
+                            <div class="input-group-text bg-dark">
+                                <i class="fas fa-calendar-day"></i>
+                            </div>
+                        </x-slot>
+                    </x-adminlte-input-date>
+                    <x-adminlte-input value="{{ $total ?? ''  }}" label="Total Stok" name="stok" readonly=""/>
                 </div>
                 <!-- /.card-body -->
             </form>
