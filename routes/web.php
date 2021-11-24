@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\HitungStokController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
@@ -56,5 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('hitung-stok/{id}', [TransaksiController::class, 'hitung_stok'])->name('lihat.hitung_stok');
         Route::get('hapus-transaksi/{id}', [TransaksiController::class, 'hapus'])->name('hapus.transaksi');
     });
+    Route::get('hitung-stok', [HitungStokController::class, 'index'])->name('index.hitung_stok');
+    Route::post('hitung-stok-semua', [HitungStokController::class, 'hitung_stok'])->name('hitung_stok.semua');
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 });

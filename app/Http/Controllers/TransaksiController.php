@@ -36,9 +36,9 @@ class TransaksiController extends Controller
         $barang = Barang::firstWhere('id', $id);
 
         // Sent Data
-        $vaksin = DetailVaksin::firstWhere('barang_id', $id);
+        $vaksin = DetailVaksin::get();
         if ($vaksin) {
-            $daftar_bulan = $vaksin::pluck('tanggal');
+            $daftar_bulan = DetailVaksin::where('barang_id', $id)->pluck('tanggal');
         } else {
             $daftar_bulan = null;
         }
@@ -73,9 +73,9 @@ class TransaksiController extends Controller
         $transaksi = Transaksi::where('detail_vaksin_id', $detail_vaksin->id ?? null)->get();
 
         // Sent Data
-        $vaksin = DetailVaksin::firstWhere('barang_id', $id);
+        $vaksin = DetailVaksin::get();
         if ($vaksin) {
-            $daftar_bulan = $vaksin::pluck('tanggal');
+            $daftar_bulan = DetailVaksin::where('barang_id', $id)->pluck('tanggal');
         } else {
             $daftar_bulan = null;
         }

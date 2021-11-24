@@ -283,6 +283,12 @@ return [
             'url' => 'kelola/transaksi',
             'can' => 'kelola transaksi',
         ],
+        [
+            'text' => 'Hitung Stok',
+            'icon' => 'fas fa-fw fa-balance-scale',
+            'url' => 'hitung-stok',
+            'can' => 'kelola transaksi',
+        ],
     ],
 
     /*
