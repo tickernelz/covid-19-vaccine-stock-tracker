@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use App\Models\DetailVaksin;
 use App\Models\Transaksi;
+use App\Models\TransaksiKabupaten;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -71,6 +72,8 @@ class TransaksiController extends Controller
             ['tanggal', '=', $tanggal],
         ]);
         $transaksi = Transaksi::where('detail_vaksin_id', $detail_vaksin->id ?? null)->get();
+        $provinsi = Transaksi::where('detail_vaksin_id', $detail_vaksin->id ?? null)->select(['dari', 'tanggal'])->groupBy('dari')->get();
+        $transaksi_kabupaten = TransaksiKabupaten::where('detail_vaksin_id', $detail_vaksin->id ?? null)->get();
 
         // Sent Data
         $vaksin = DetailVaksin::get();
@@ -82,16 +85,18 @@ class TransaksiController extends Controller
 
         // Hitung Stok
         $masuk = Transaksi::where('detail_vaksin_id', $detail_vaksin->id ?? null)->sum('penerimaan');
-        $keluar = Transaksi::where('detail_vaksin_id', $detail_vaksin->id ?? null)->sum('pengeluaran');
+        $keluar = TransaksiKabupaten::where('detail_vaksin_id', $detail_vaksin->id)->sum('penerimaan');
         $total = $masuk - $keluar;
 
         return view('kelola.transaksi.lihat', compact([
             'daftar_bulan',
             'total',
+            'provinsi',
             'tanggal',
             'barang',
             'detail_vaksin',
             'transaksi',
+            'transaksi_kabupaten',
             'conf_tgl',
             'conf_bulan_tahun',
         ]));
@@ -105,7 +110,7 @@ class TransaksiController extends Controller
         foreach ($vaksin as $li) {
             // Hitung Stok
             $masuk = Transaksi::where('detail_vaksin_id', $li->id)->sum('penerimaan');
-            $keluar = Transaksi::where('detail_vaksin_id', $li->id)->sum('pengeluaran');
+            $keluar = TransaksiKabupaten::where('detail_vaksin_id', $li->id)->sum('penerimaan');
             $total = $masuk - $keluar;
             $sum_total += $total;
         }
@@ -153,15 +158,29 @@ class TransaksiController extends Controller
         return Response()->json($response);
     }
 
+    public function get_transaksi_kabupaten(Request $request)
+    {
+        $id = $request->id;
+        $data = TransaksiKabupaten::firstWhere('id', $id);
+        $tanggal = Carbon::parse($data->tanggal)->formatLocalized('%d %B %Y');
+        $tanggal_provinsi = Carbon::parse($data->tanggal_provinsi)->formatLocalized('%d %B %Y');
+
+        $response = [
+            'tanggal_provinsi' => $tanggal_provinsi,
+            'tanggal' => $tanggal,
+            'data' => $data,
+        ];
+
+        return Response()->json($response);
+    }
+
     public function tambah_transaksi(Request $request, int $id)
     {
         $request->validate([
             'tanggal-transaksi' => 'required|string',
             'dokumen' => 'string|nullable',
-            'dari' => 'string|nullable',
-            'kepada' => 'string|nullable',
-            'penerimaan' => 'integer|nullable',
-            'pengeluaran' => 'integer|nullable',
+            'dari' => 'required|string',
+            'penerimaan' => 'required|integer',
             'petugas' => 'string|nullable',
             'penerima' => 'string|nullable',
             'hp' => 'numeric|nullable',
@@ -177,9 +196,7 @@ class TransaksiController extends Controller
         $data->tanggal = $tanggal;
         $data->dokumen = $request->input('dokumen');
         $data->dari = $request->input('dari');
-        $data->kepada = $request->input('kepada');
         $data->penerimaan = $request->input('penerimaan');
-        $data->pengeluaran = $request->input('pengeluaran');
         $data->petugas = $request->input('petugas');
         $data->penerima = $request->input('penerima');
         $data->hp = $request->input('hp');
@@ -189,6 +206,78 @@ class TransaksiController extends Controller
         return back()->with('success-transaksi', 'Transaksi Berhasil Ditambahkan!');
     }
 
+    public function tambah_transaksi_kabupaten(Request $request, int $id)
+    {
+        $request->validate([
+            'tanggal-transaksi' => 'required|string',
+            'tanggal_provinsi' => 'required|string',
+            'dokumen' => 'string|nullable',
+            'dari' => 'required|string',
+            'kepada' => 'required|string',
+            'penerimaan' => 'required|integer',
+            'petugas' => 'string|nullable',
+            'penerima' => 'string|nullable',
+            'hp' => 'numeric|nullable',
+            'keterangan' => 'string|nullable',
+        ]);
+
+        // Konversi Tanggal
+        $tanggal = Carbon::createFromLocaleIsoFormat('D MMMM Y', 'id', $request->input('tanggal-transaksi'))->format('Y-m-d');
+
+        // Kirim Data ke Database
+        $data = new TransaksiKabupaten();
+        $data->detail_vaksin_id = $id;
+        $data->tanggal = $tanggal;
+        $data->tanggal_provinsi = $request->input('tanggal_provinsi');
+        $data->dokumen = $request->input('dokumen');
+        $data->dari = $request->input('dari');
+        $data->kepada = $request->input('kepada');
+        $data->penerimaan = $request->input('penerimaan');
+        $data->petugas = $request->input('petugas');
+        $data->penerima = $request->input('penerima');
+        $data->hp = $request->input('hp');
+        $data->keterangan = $request->input('keterangan');
+        $data->save();
+
+        return back()->with('success-transaksi-kabupaten', 'Transaksi Berhasil Ditambahkan!');
+    }
+
+    public function edit_transaksi_kabupaten(Request $request)
+    {
+        $data = TransaksiKabupaten::firstWhere('id', $request->input('id-kabupaten-edit'));
+
+        $request->validate([
+            'tanggal-transaksi-edit' => 'required|string',
+            'tanggal_provinsi-edit' => 'required|string',
+            'dokumen-kabupaten-edit' => 'string|nullable',
+            'dari-kabupaten-edit' => 'required|string',
+            'kepada-kabupaten-edit' => 'required|string',
+            'penerimaan-kabupaten-edit' => 'required|integer',
+            'petugas-kabupaten-edit' => 'string|nullable',
+            'penerima-kabupaten-edit' => 'string|nullable',
+            'hp-kabupaten-edit' => 'numeric|nullable',
+            'keterangan-kabupaten-edit' => 'string|nullable',
+        ]);
+
+        // Konversi Tanggal
+        $tanggal = Carbon::createFromLocaleIsoFormat('D MMMM Y', 'id', $request->input('tanggal-transaksi-edit'))->format('Y-m-d');
+
+        // Kirim Data ke Database
+        $data->tanggal = $tanggal;
+        $data->tanggal_provinsi = $request->input('tanggal_provinsi-edit');
+        $data->dokumen = $request->input('dokumen-kabupaten-edit');
+        $data->dari = $request->input('dari-kabupaten-edit');
+        $data->kepada = $request->input('kepada-kabupaten-edit');
+        $data->penerimaan = $request->input('penerimaan-kabupaten-edit');
+        $data->petugas = $request->input('petugas-kabupaten-edit');
+        $data->penerima = $request->input('penerima-kabupaten-edit');
+        $data->hp = $request->input('hp-kabupaten-edit');
+        $data->keterangan = $request->input('keterangan-kabupaten-edit');
+        $data->save();
+
+        return back()->with('success-transaksi-kabupaten', 'Transaksi Berhasil Diperbarui!');
+    }
+
     public function edit_transaksi(Request $request)
     {
         $data = Transaksi::firstWhere('id', $request->input('id-edit'));
@@ -196,10 +285,8 @@ class TransaksiController extends Controller
         $request->validate([
             'tanggal-transaksi-edit' => 'required|string',
             'dokumen-edit' => 'string|nullable',
-            'dari-edit' => 'string|nullable',
-            'kepada-edit' => 'string|nullable',
-            'penerimaan-edit' => 'integer|nullable',
-            'pengeluaran-edit' => 'integer|nullable',
+            'dari-edit' => 'required|string',
+            'penerimaan-edit' => 'required|integer',
             'petugas-edit' => 'string|nullable',
             'penerima-edit' => 'string|nullable',
             'hp-edit' => 'numeric|nullable',
@@ -213,9 +300,7 @@ class TransaksiController extends Controller
         $data->tanggal = $tanggal;
         $data->dokumen = $request->input('dokumen-edit');
         $data->dari = $request->input('dari-edit');
-        $data->kepada = $request->input('kepada-edit');
         $data->penerimaan = $request->input('penerimaan-edit');
-        $data->pengeluaran = $request->input('pengeluaran-edit');
         $data->petugas = $request->input('petugas-edit');
         $data->penerima = $request->input('penerima-edit');
         $data->hp = $request->input('hp-edit');
@@ -225,10 +310,27 @@ class TransaksiController extends Controller
         return back()->with('success-transaksi', 'Transaksi Berhasil Diperbarui!');
     }
 
-    public function hapus(int $id)
+    public function hapus(int $vaksin_id, int $id)
     {
-        Transaksi::firstWhere('id', $id)->delete();
+        $transaksi = Transaksi::firstWhere('id', $id);
+        $transaksi_kabupaten= TransaksiKabupaten::where([
+            ['detail_vaksin_id', '=', $vaksin_id],
+            ['tanggal_provinsi', '=', $transaksi->tanggal],
+            ['dari', '=', $transaksi->dari],
+        ])->get();
+        foreach ($transaksi_kabupaten as $li)
+        {
+            $li->delete();
+        }
+        $transaksi->delete();
 
         return back()->with('success-transaksi', 'Transaksi Berhasil Dihapus!');
+    }
+
+    public function hapus_kabupaten(int $id)
+    {
+        TransaksiKabupaten::firstWhere('id', $id)->delete();
+
+        return back()->with('success-transaksi-kabupaten', 'Transaksi Berhasil Dihapus!');
     }
 }

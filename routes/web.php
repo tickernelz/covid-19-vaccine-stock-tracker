@@ -53,9 +53,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('kelola/transaksi/lihat/cari/detail_vaksin/{id}/{tanggal}', [TransaksiController::class, 'post_detail_vaksin'])->name('lihat.cari.detail_vaksin.transaksi');
         Route::post('kelola/transaksi/lihat/cari/tambah_transaksi/{id}', [TransaksiController::class, 'tambah_transaksi'])->name('lihat.tambah.transaksi');
         Route::post('kelola/transaksi/lihat/cari/edit_transaksi', [TransaksiController::class, 'edit_transaksi'])->name('lihat.edit.transaksi');
+        Route::post('kelola/transaksi/lihat/cari/tambah_transaksi_kabupaten/{id}', [TransaksiController::class, 'tambah_transaksi_kabupaten'])->name('lihat.tambah.transaksi.kabupaten');
+        Route::post('kelola/transaksi/lihat/cari/edit_transaksi_kabupaten', [TransaksiController::class, 'edit_transaksi_kabupaten'])->name('lihat.edit.transaksi.kabupaten');
         Route::get('get-transaksi', [TransaksiController::class, 'get_transaksi'])->name('lihat.get_transaksi');
+        Route::get('get-transaksi-kabupaten', [TransaksiController::class, 'get_transaksi_kabupaten'])->name('lihat.get_transaksi_kabupaten');
         Route::post('hitung-stok/{id}', [TransaksiController::class, 'hitung_stok'])->name('lihat.hitung_stok');
-        Route::get('hapus-transaksi/{id}', [TransaksiController::class, 'hapus'])->name('hapus.transaksi');
+        Route::get('hapus-transaksi/{vaksin_id}/{id}', [TransaksiController::class, 'hapus'])->name('hapus.transaksi');
+        Route::get('hapus-transaksi-kabupaten/{id}', [TransaksiController::class, 'hapus_kabupaten'])->name('hapus.transaksi.kabupaten');
     });
     Route::get('hitung-stok', [HitungStokController::class, 'index'])->name('index.hitung_stok');
     Route::post('hitung-stok-semua', [HitungStokController::class, 'hitung_stok'])->name('hitung_stok.semua');

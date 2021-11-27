@@ -69,10 +69,8 @@ namespace App\Models{
  * @property int $detail_vaksin_id
  * @property string $tanggal
  * @property string|null $dokumen
- * @property string|null $dari
- * @property string|null $kepada
- * @property int|null $penerimaan
- * @property int|null $pengeluaran
+ * @property string $dari
+ * @property int $penerimaan
  * @property string|null $petugas
  * @property string|null $penerima
  * @property string|null $hp
@@ -89,16 +87,54 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Transaksi whereDokumen($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Transaksi whereHp($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Transaksi whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Transaksi whereKepada($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Transaksi whereKeterangan($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Transaksi wherePenerima($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Transaksi wherePenerimaan($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Transaksi wherePengeluaran($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Transaksi wherePetugas($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Transaksi whereTanggal($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Transaksi whereUpdatedAt($value)
  */
 	class Transaksi extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\TransaksiKabupaten
+ *
+ * @property int $id
+ * @property int $detail_vaksin_id
+ * @property string $tanggal_provinsi
+ * @property string $tanggal
+ * @property string|null $dokumen
+ * @property string $dari
+ * @property string $kepada
+ * @property int $penerimaan
+ * @property string|null $petugas
+ * @property string|null $penerima
+ * @property string|null $hp
+ * @property string|null $keterangan
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\DetailVaksin $detail_vaksin
+ * @method static \Illuminate\Database\Eloquent\Builder|TransaksiKabupaten newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TransaksiKabupaten newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TransaksiKabupaten query()
+ * @method static \Illuminate\Database\Eloquent\Builder|TransaksiKabupaten whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TransaksiKabupaten whereDari($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TransaksiKabupaten whereDetailVaksinId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TransaksiKabupaten whereDokumen($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TransaksiKabupaten whereHp($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TransaksiKabupaten whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TransaksiKabupaten whereKepada($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TransaksiKabupaten whereKeterangan($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TransaksiKabupaten wherePenerima($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TransaksiKabupaten wherePenerimaan($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TransaksiKabupaten wherePetugas($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TransaksiKabupaten whereTanggal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TransaksiKabupaten whereTanggalProvinsi($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TransaksiKabupaten whereUpdatedAt($value)
+ */
+	class TransaksiKabupaten extends \Eloquent {}
 }
 
 namespace App\Models{

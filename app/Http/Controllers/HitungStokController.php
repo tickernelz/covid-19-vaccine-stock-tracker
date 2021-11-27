@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DetailVaksin;
 use App\Models\Transaksi;
+use App\Models\TransaksiKabupaten;
 use Illuminate\Http\Request;
 
 class HitungStokController extends Controller
@@ -17,6 +18,7 @@ class HitungStokController extends Controller
         } else {
             $daftar_bulan = null;
         }
+
         return view('kelola.hitung_stok.index', compact([
             'daftar_bulan',
         ]));
@@ -30,7 +32,7 @@ class HitungStokController extends Controller
         foreach ($vaksin as $li) {
             // Hitung Stok
             $masuk = Transaksi::where('detail_vaksin_id', $li->id)->sum('penerimaan');
-            $keluar = Transaksi::where('detail_vaksin_id', $li->id)->sum('pengeluaran');
+            $keluar = TransaksiKabupaten::where('detail_vaksin_id', $li->id)->sum('penerimaan');
             $total = $masuk - $keluar;
             $sum_total += $total;
         }
