@@ -261,37 +261,12 @@
                 "buttons": {
                     "dom": {"button": {"className": "btn"}},
                     "buttons": [{"extend": "pageLength", "className": "btn-default"}, {
-                        "extend": "print",
-                        "className": "btn-default",
-                        "title": "Laporan Transaksi Vaksin {{ $barang->nama ?? '' }}",
-                        "messageTop": "Bulan {{ $tanggal ?? ''  }}",
-                        "text": "\u003Ci class=\u0022fas fa-fw fa-lg fa-print\u0022\u003E\u003C\/i\u003E",
-                        "titleAttr": "Print",
-                        "exportOptions": {"columns": ":not(:last-child)"}
-                    }, {
-                        "extend": "csv",
-                        "className": "btn-default",
-                        "title": "Laporan Transaksi Vaksin {{ $barang->nama ?? '' }}",
-                        "messageTop": "Bulan {{ $tanggal ?? ''  }}",
-                        "text": "\u003Ci class=\u0022fas fa-fw fa-lg fa-file-csv text-primary\u0022\u003E\u003C\/i\u003E",
-                        "titleAttr": "Export to CSV",
-                        "exportOptions": {"columns": ":not(:last-child)"}
-                    }, {
                         "extend": "excel",
                         "className": "btn-default",
                         "title": "Laporan Transaksi Vaksin {{ $barang->nama ?? '' }}",
                         "messageTop": "Bulan {{ $tanggal ?? ''  }}",
                         "text": "\u003Ci class=\u0022fas fa-fw fa-lg fa-file-excel text-success\u0022\u003E\u003C\/i\u003E",
                         "titleAttr": "Export to Excel",
-                        "exportOptions": {"columns": ":not(:last-child)"}
-                    }, {
-                        "extend": "pdf",
-                        "className": "btn-default",
-                        "orientation": 'landscape',
-                        "title": "Laporan Transaksi Vaksin {{ $barang->nama ?? '' }}",
-                        "messageTop": "Bulan {{ $tanggal ?? ''  }}",
-                        "text": "\u003Ci class=\u0022fas fa-fw fa-lg fa-file-pdf text-danger\u0022\u003E\u003C\/i\u003E",
-                        "titleAttr": "Export to PDF",
                         "exportOptions": {"columns": ":not(:last-child)"}
                     }]
                 }
