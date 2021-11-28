@@ -49,7 +49,7 @@ class BarangController extends Controller
 
     public function edit(Request $request, int $id)
     {
-        $data = Barang::firstWhere($id);
+        $data = Barang::find($id);
 
         $request->validate([
             'nama' => 'required|string|unique:barangs,nama,'.$data->id,
