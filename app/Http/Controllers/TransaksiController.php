@@ -71,6 +71,16 @@ class TransaksiController extends Controller
             ['barang_id', '=', $id],
             ['tanggal', '=', $tanggal],
         ]);
+        if ($request->has('ubah'))
+        {
+            $detail_vaksin = DetailVaksin::firstWhere([
+                ['barang_id', '=', $id],
+                ['tanggal', '=', $request->input('tanggal_lama')],
+            ]);
+            $detail_vaksin->tanggal = $request->input('tanggal');
+            $detail_vaksin->save();
+            return back()->with('success-ubah-tanggal', 'Tanggal Data Berhasil Diubah!');
+        }
         $transaksi = Transaksi::where('detail_vaksin_id', $detail_vaksin->id ?? null)->get();
         if($transaksi->isEmpty())
         {

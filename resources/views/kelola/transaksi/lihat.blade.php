@@ -46,7 +46,15 @@ function hitung_pengeluaran ($id, $tanggal, $dari)
         </div>
         <!-- /.card-header -->
         <div class="card-body">
+            @if (Session::has('success-ubah-tanggal'))
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fas fa-check"></i> Success!</h5>
+                    {{ Session::get('success-ubah-tanggal') }}
+                </div>
+            @endif
             <form action="{{ route('lihat.cari.transaksi', [$barang->id]) }}">
+                <x-adminlte-input value="{{ Request::get('tanggal') ?? '' }}" name="tanggal_lama" hidden=""/>
                 <x-adminlte-input-date value="{{ $tanggal ?? '' }}" name="tanggal" :config="$conf_bulan_tahun">
                     <x-slot name="appendSlot">
                         <div class="input-group-text bg-dark">
@@ -54,7 +62,11 @@ function hitung_pengeluaran ($id, $tanggal, $dari)
                         </div>
                     </x-slot>
                 </x-adminlte-input-date>
-                <button type="submit" class="btn btn-primary">Cari</button>
+                <div class="icheck-primary">
+                    <input type="checkbox" name="ubah" id="ubah">
+                    <label for="ubah">{{ __('Ubah Tanggal') }}</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
         <!-- /.card-body -->
@@ -63,7 +75,7 @@ function hitung_pengeluaran ($id, $tanggal, $dari)
     <div class="card card-default">
         <div class="card-header">
             <h3 class="card-title">
-                Hitung Stok
+                Hitung Stok Vaksin {{ $barang->nama ?? ''  }}
             </h3>
         </div>
         <!-- /.card-header -->
