@@ -22,4 +22,9 @@ class DetailVaksin extends Model
     {
         return $this->hasMany(Transaksi::class);
     }
+
+    public function transaksi_kabupatens()
+    {
+        return $this->hasMany(TransaksiKabupaten::class);
+    }
 }
