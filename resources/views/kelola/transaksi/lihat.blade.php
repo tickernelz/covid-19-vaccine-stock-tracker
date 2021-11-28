@@ -197,14 +197,17 @@ function hitung_pengeluaran ($id, $tanggal, $dari)
                         <x-adminlte-button type="submit" class="mr-auto" theme="success" label="Simpan"/>
                         <x-adminlte-button theme="danger" label="Tutup" data-dismiss="modal"/>
                     </x-slot>
-                    <x-adminlte-select2 name="tanggal_provinsi" id="tanggal_provinsi-provinsi" label="Tanggal Transaksi Provinsi"
+                    <x-adminlte-select2 name="tanggal_provinsi" id="tanggal_provinsi-provinsi"
+                                        label="Tanggal Transaksi Provinsi"
                                         data-placeholder="Pilih Tanggal...">
                         <option></option>
                         <!-- Required for data-placeholder attribute to work with Select2 plugin -->
-                        @foreach($provinsi as $list)
-                            <option
-                                value="{{ $list->tanggal }}">{{ \Carbon\Carbon::parse($list->tanggal)->formatLocalized('%d %B %Y') }}</option>
-                        @endforeach
+                        @if($provinsi_tanggal)
+                            @foreach($provinsi_tanggal as $list)
+                                <option
+                                    value="{{ $list->tanggal }}">{{ \Carbon\Carbon::parse($list->tanggal)->formatLocalized('%d %B %Y') }}</option>
+                            @endforeach
+                        @endif
                     </x-adminlte-select2>
                     <x-adminlte-input-date name="tanggal-transaksi" id="tanggal-transaksi-kabupaten" :config="$conf_tgl"
                                            placeholder="Masukkan Tanggal..."
@@ -220,10 +223,12 @@ function hitung_pengeluaran ($id, $tanggal, $dari)
                                         data-placeholder="Pilih Sumber Vaksin...">
                         <option></option>
                         <!-- Required for data-placeholder attribute to work with Select2 plugin -->
-                        @foreach($provinsi as $list)
-                            <option
-                                value="{{ $list->dari }}">{{ $list->dari }}</option>
-                        @endforeach
+                        @if($provinsi_dari)
+                            @foreach($provinsi_dari as $list)
+                                <option
+                                    value="{{ $list->dari }}">{{ $list->dari }}</option>
+                            @endforeach
+                        @endif
                     </x-adminlte-select2>
                     <x-adminlte-input name="kepada" label="Kepada" placeholder="Masukkan Kepada..."/>
                     <x-adminlte-input name="penerimaan" type="number" label="Penerimaan"
@@ -244,16 +249,20 @@ function hitung_pengeluaran ($id, $tanggal, $dari)
                         <x-adminlte-button theme="danger" label="Tutup" data-dismiss="modal"/>
                     </x-slot>
                     <x-adminlte-input name="id-kabupaten-edit" label="ID" readonly=""/>
-                    <x-adminlte-select2 name="tanggal_provinsi-edit" id="tanggal_provinsi-provinsi-edit" label="Tanggal Transaksi Provinsi"
+                    <x-adminlte-select2 name="tanggal_provinsi-edit" id="tanggal_provinsi-provinsi-edit"
+                                        label="Tanggal Transaksi Provinsi"
                                         data-placeholder="Pilih Tanggal...">
                         <option></option>
                         <!-- Required for data-placeholder attribute to work with Select2 plugin -->
-                        @foreach($provinsi as $list)
-                            <option
-                                value="{{ $list->tanggal }}">{{ \Carbon\Carbon::parse($list->tanggal)->formatLocalized('%d %B %Y') }}</option>
-                        @endforeach
+                        @if($provinsi_tanggal)
+                            @foreach($provinsi_tanggal as $list)
+                                <option
+                                    value="{{ $list->tanggal }}">{{ \Carbon\Carbon::parse($list->tanggal)->formatLocalized('%d %B %Y') }}</option>
+                            @endforeach
+                        @endif
                     </x-adminlte-select2>
-                    <x-adminlte-input-date name="tanggal-transaksi-edit" id="tanggal-transaksi-kabupaten-edit" :config="$conf_tgl"
+                    <x-adminlte-input-date name="tanggal-transaksi-edit" id="tanggal-transaksi-kabupaten-edit"
+                                           :config="$conf_tgl"
                                            placeholder="Masukkan Tanggal..."
                                            label="Tanggal*" required>
                         <x-slot name="appendSlot">
@@ -267,18 +276,23 @@ function hitung_pengeluaran ($id, $tanggal, $dari)
                                         data-placeholder="Pilih Sumber Vaksin...">
                         <option></option>
                         <!-- Required for data-placeholder attribute to work with Select2 plugin -->
-                        @foreach($provinsi as $list)
-                            <option
-                                value="{{ $list->dari }}">{{ $list->dari }}</option>
-                        @endforeach
+                        @if($provinsi_dari)
+                            @foreach($provinsi_dari as $list)
+                                <option
+                                    value="{{ $list->dari }}">{{ $list->dari }}</option>
+                            @endforeach
+                        @endif
                     </x-adminlte-select2>
                     <x-adminlte-input name="kepada-kabupaten-edit" label="Kepada" placeholder="Masukkan Kepada..."/>
                     <x-adminlte-input name="penerimaan-kabupaten-edit" type="number" label="Penerimaan"
                                       placeholder="Masukkan Penerimaan..."/>
                     <x-adminlte-input name="petugas-kabupaten-edit" label="Petugas" placeholder="Masukkan Petugas..."/>
-                    <x-adminlte-input name="penerima-kabupaten-edit" label="Penerima" placeholder="Masukkan Penerima..."/>
-                    <x-adminlte-input name="hp-kabupaten-edit" type="number" label="No. HP" placeholder="Masukkan No.HP..."/>
-                    <x-adminlte-input name="keterangan-kabupaten-edit" label="Keterangan" placeholder="Masukkan Keterangan..."/>
+                    <x-adminlte-input name="penerima-kabupaten-edit" label="Penerima"
+                                      placeholder="Masukkan Penerima..."/>
+                    <x-adminlte-input name="hp-kabupaten-edit" type="number" label="No. HP"
+                                      placeholder="Masukkan No.HP..."/>
+                    <x-adminlte-input name="keterangan-kabupaten-edit" label="Keterangan"
+                                      placeholder="Masukkan Keterangan..."/>
                 </x-adminlte-modal>
             </form>
         @endif

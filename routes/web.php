@@ -62,6 +62,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('hapus-transaksi-kabupaten/{id}', [TransaksiController::class, 'hapus_kabupaten'])->name('hapus.transaksi.kabupaten');
     });
     Route::get('hitung-stok', [HitungStokController::class, 'index'])->name('index.hitung_stok');
-    Route::post('hitung-stok-semua', [HitungStokController::class, 'hitung_stok'])->name('hitung_stok.semua');
+    Route::post('hitung-stok-semua', [HitungStokController::class, 'hitung_stok_total'])->name('hitung_stok.semua');
+    Route::post('hitung-stok-penerimaan', [HitungStokController::class, 'hitung_stok_penerimaan'])->name('hitung_stok.penerimaan');
+    Route::post('hitung-stok-pengeluaran', [HitungStokController::class, 'hitung_stok_pengeluaran'])->name('hitung_stok.pengeluaran');
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::post('kelola/transaksi/lihat/post', [HomeController::class, 'transaksi'])->name('lihat.index.transaksi.post');
 });

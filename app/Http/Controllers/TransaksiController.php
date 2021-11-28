@@ -72,7 +72,14 @@ class TransaksiController extends Controller
             ['tanggal', '=', $tanggal],
         ]);
         $transaksi = Transaksi::where('detail_vaksin_id', $detail_vaksin->id ?? null)->get();
-        $provinsi = Transaksi::where('detail_vaksin_id', $detail_vaksin->id ?? null)->select(['dari', 'tanggal'])->groupBy('dari')->get();
+        if($transaksi->isEmpty())
+        {
+            $provinsi_tanggal = null;
+            $provinsi_dari = null;
+        } else {
+            $provinsi_tanggal = Transaksi::where('detail_vaksin_id', $detail_vaksin->id ?? null)->select('tanggal')->groupBy('tanggal')->get();
+            $provinsi_dari = Transaksi::where('detail_vaksin_id', $detail_vaksin->id ?? null)->select('dari')->groupBy('dari')->get();
+        }
         $transaksi_kabupaten = TransaksiKabupaten::where('detail_vaksin_id', $detail_vaksin->id ?? null)->get();
 
         // Sent Data
@@ -85,13 +92,14 @@ class TransaksiController extends Controller
 
         // Hitung Stok
         $masuk = Transaksi::where('detail_vaksin_id', $detail_vaksin->id ?? null)->sum('penerimaan');
-        $keluar = TransaksiKabupaten::where('detail_vaksin_id', $detail_vaksin->id)->sum('penerimaan');
+        $keluar = TransaksiKabupaten::where('detail_vaksin_id', $detail_vaksin->id ?? null)->sum('penerimaan');
         $total = $masuk - $keluar;
 
         return view('kelola.transaksi.lihat', compact([
             'daftar_bulan',
             'total',
-            'provinsi',
+            'provinsi_tanggal',
+            'provinsi_dari',
             'tanggal',
             'barang',
             'detail_vaksin',
