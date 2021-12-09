@@ -149,7 +149,7 @@ function hitung_pengeluaran ($id, $tanggal, $dari)
                 <x-adminlte-modal id="tambah-transaksi" title="Tambah Transaksi"
                                   icon="fas fa-plus" size='lg'>
                     <x-slot name="footerSlot">
-                        <x-adminlte-button type="submit" class="mr-auto" theme="success" label="Simpan"/>
+                        <x-adminlte-button type="submit" onclick="confirm('Cek kembali data transaksi, apakah sudah benar?')" class="mr-auto" theme="success" label="Simpan"/>
                         <x-adminlte-button theme="danger" label="Tutup" data-dismiss="modal"/>
                     </x-slot>
                     <x-adminlte-input-date name="tanggal-transaksi" :config="$conf_tgl"
@@ -165,8 +165,8 @@ function hitung_pengeluaran ($id, $tanggal, $dari)
                     <x-adminlte-input name="dari" label="Dari" placeholder="Masukkan Dari..."/>
                     <x-adminlte-input name="penerimaan" type="number" label="Penerimaan"
                                       placeholder="Masukkan Penerimaan..."/>
-                    <x-adminlte-input name="petugas" label="Petugas" placeholder="Masukkan Petugas..."/>
-                    <x-adminlte-input name="penerima" label="Penerima" placeholder="Masukkan Penerima..."/>
+                    <x-adminlte-input name="petugas" label="Petugas Pengirim" placeholder="Masukkan Petugas..."/>
+                    <x-adminlte-input name="penerima" label="Petugas Penerima" placeholder="Masukkan Penerima..."/>
                     <x-adminlte-input name="hp" type="number" label="No. HP" placeholder="Masukkan No.HP..."/>
                     <x-adminlte-input name="keterangan" label="Keterangan" placeholder="Masukkan Keterangan..."/>
                 </x-adminlte-modal>
@@ -177,7 +177,7 @@ function hitung_pengeluaran ($id, $tanggal, $dari)
                 <x-adminlte-modal id="edit-transaksi" title="Edit Transaksi"
                                   icon="fas fa-plus" size='lg'>
                     <x-slot name="footerSlot">
-                        <x-adminlte-button type="submit" class="mr-auto" theme="success" label="Simpan"/>
+                        <x-adminlte-button type="submit" onclick="confirm('Cek kembali data transaksi, apakah sudah benar?')" class="mr-auto" theme="success" label="Simpan"/>
                         <x-adminlte-button theme="danger" label="Tutup" data-dismiss="modal"/>
                     </x-slot>
                     <x-adminlte-input name="id-edit" label="ID" readonly=""/>
@@ -194,8 +194,8 @@ function hitung_pengeluaran ($id, $tanggal, $dari)
                     <x-adminlte-input name="dari-edit" label="Dari" placeholder="Masukkan Dari..."/>
                     <x-adminlte-input name="penerimaan-edit" type="number" label="Penerimaan"
                                       placeholder="Masukkan Penerimaan..."/>
-                    <x-adminlte-input name="petugas-edit" label="Petugas" placeholder="Masukkan Petugas..."/>
-                    <x-adminlte-input name="penerima-edit" label="Penerima" placeholder="Masukkan Penerima..."/>
+                    <x-adminlte-input name="petugas-edit" label="Petugas Pengirim" placeholder="Masukkan Petugas..."/>
+                    <x-adminlte-input name="penerima-edit" label="Petugas Penerima" placeholder="Masukkan Penerima..."/>
                     <x-adminlte-input name="hp-edit" type="number" label="No. HP" placeholder="Masukkan No.HP..."/>
                     <x-adminlte-input name="keterangan-edit" label="Keterangan" placeholder="Masukkan Keterangan..."/>
                 </x-adminlte-modal>
@@ -206,7 +206,7 @@ function hitung_pengeluaran ($id, $tanggal, $dari)
                 <x-adminlte-modal id="tambah-transaksi-kabupaten" title="Tambah Transaksi"
                                   icon="fas fa-plus" size='lg'>
                     <x-slot name="footerSlot">
-                        <x-adminlte-button type="submit" class="mr-auto" theme="success" label="Simpan"/>
+                        <x-adminlte-button type="submit" onclick="confirm('Cek kembali data transaksi, apakah sudah benar?')" class="mr-auto" theme="success" label="Simpan"/>
                         <x-adminlte-button theme="danger" label="Tutup" data-dismiss="modal"/>
                     </x-slot>
                     <x-adminlte-select2 name="tanggal_provinsi" id="tanggal_provinsi-provinsi"
@@ -242,11 +242,29 @@ function hitung_pengeluaran ($id, $tanggal, $dari)
                             @endforeach
                         @endif
                     </x-adminlte-select2>
-                    <x-adminlte-input name="kepada" label="Kepada" placeholder="Masukkan Kepada..."/>
+                    <x-adminlte-select2 name="kepada" id="kepada-kabupaten" label="Kepada"
+                                        data-placeholder="Pilih Kabupaten...">
+                        <option></option>
+                        <!-- Required for data-placeholder attribute to work with Select2 plugin -->
+                        <option value="Barito Selatan">Barito Selatan</option>
+                        <option value="Barito Timur">Barito Timur</option>
+                        <option value="Barito Utara">Barito Utara</option>
+                        <option value="Gunung Mas">Gunung Mas</option>
+                        <option value="Kapuas">Kapuas</option>
+                        <option value="Katingan">Katingan</option>
+                        <option value="Kotawaringin Barat">Kotawaringin Barat</option>
+                        <option value="Kotawaringin Timur">Kotawaringin Timur</option>
+                        <option value="Lamandau">Lamandau</option>
+                        <option value="Murung Raya">Murung Raya</option>
+                        <option value="Pulang Pisau">Pulang Pisau</option>
+                        <option value="Sukamara">Sukamara</option>
+                        <option value="Seruyan">Seruyan</option>
+                        <option value="Kota Palangka Raya">Kota Palangka Raya</option>
+                    </x-adminlte-select2>
                     <x-adminlte-input name="penerimaan" type="number" label="Penerimaan"
                                       placeholder="Masukkan Penerimaan..."/>
-                    <x-adminlte-input name="petugas" label="Petugas" placeholder="Masukkan Petugas..."/>
-                    <x-adminlte-input name="penerima" label="Penerima" placeholder="Masukkan Penerima..."/>
+                    <x-adminlte-input name="petugas" label="Petugas Pengirim" placeholder="Masukkan Petugas..."/>
+                    <x-adminlte-input name="penerima" label="Petugas Penerima" placeholder="Masukkan Penerima..."/>
                     <x-adminlte-input name="hp" type="number" label="No. HP" placeholder="Masukkan No.HP..."/>
                     <x-adminlte-input name="keterangan" label="Keterangan" placeholder="Masukkan Keterangan..."/>
                 </x-adminlte-modal>
@@ -257,9 +275,10 @@ function hitung_pengeluaran ($id, $tanggal, $dari)
                 <x-adminlte-modal id="edit-transaksi-kabupaten" title="Edit Transaksi"
                                   icon="fas fa-plus" size='lg'>
                     <x-slot name="footerSlot">
-                        <x-adminlte-button type="submit" class="mr-auto" theme="success" label="Simpan"/>
+                        <x-adminlte-button type="submit" onclick="confirm('Cek kembali data transaksi, apakah sudah benar?')" class="mr-auto" theme="success" label="Simpan"/>
                         <x-adminlte-button theme="danger" label="Tutup" data-dismiss="modal"/>
                     </x-slot>
+                    <x-adminlte-input name="penerimaan-kabupaten-edit-ori" type="hidden"/>
                     <x-adminlte-input name="id-kabupaten-edit" label="ID" readonly=""/>
                     <x-adminlte-select2 name="tanggal_provinsi-edit" id="tanggal_provinsi-provinsi-edit"
                                         label="Tanggal Transaksi Provinsi"
@@ -295,11 +314,29 @@ function hitung_pengeluaran ($id, $tanggal, $dari)
                             @endforeach
                         @endif
                     </x-adminlte-select2>
-                    <x-adminlte-input name="kepada-kabupaten-edit" label="Kepada" placeholder="Masukkan Kepada..."/>
+                    <x-adminlte-select2 name="kepada-kabupaten-edit" id="kepada-kabupaten-edit" label="Kepada"
+                                        data-placeholder="Pilih Kabupaten...">
+                        <option></option>
+                        <!-- Required for data-placeholder attribute to work with Select2 plugin -->
+                        <option value="Barito Selatan">Barito Selatan</option>
+                        <option value="Barito Timur">Barito Timur</option>
+                        <option value="Barito Utara">Barito Utara</option>
+                        <option value="Gunung Mas">Gunung Mas</option>
+                        <option value="Kapuas">Kapuas</option>
+                        <option value="Katingan">Katingan</option>
+                        <option value="Kotawaringin Barat">Kotawaringin Barat</option>
+                        <option value="Kotawaringin Timur">Kotawaringin Timur</option>
+                        <option value="Lamandau">Lamandau</option>
+                        <option value="Murung Raya">Murung Raya</option>
+                        <option value="Pulang Pisau">Pulang Pisau</option>
+                        <option value="Sukamara">Sukamara</option>
+                        <option value="Seruyan">Seruyan</option>
+                        <option value="Kota Palangka Raya">Kota Palangka Raya</option>
+                    </x-adminlte-select2>
                     <x-adminlte-input name="penerimaan-kabupaten-edit" type="number" label="Penerimaan"
                                       placeholder="Masukkan Penerimaan..."/>
-                    <x-adminlte-input name="petugas-kabupaten-edit" label="Petugas" placeholder="Masukkan Petugas..."/>
-                    <x-adminlte-input name="penerima-kabupaten-edit" label="Penerima"
+                    <x-adminlte-input name="petugas-kabupaten-edit" label="Petugas Pengirim" placeholder="Masukkan Petugas..."/>
+                    <x-adminlte-input name="penerima-kabupaten-edit" label="Petugas Penerima"
                                       placeholder="Masukkan Penerima..."/>
                     <x-adminlte-input name="hp-kabupaten-edit" type="number" label="No. HP"
                                       placeholder="Masukkan No.HP..."/>
@@ -339,8 +376,8 @@ function hitung_pengeluaran ($id, $tanggal, $dari)
                         <th>Penerimaan</th>
                         <th>Pengeluaran</th>
                         <th>Sisa Stok</th>
-                        <th>Petugas</th>
-                        <th>Penerima</th>
+                        <th>Petugas Pengirim</th>
+                        <th>Petugas Penerima</th>
                         <th>No. HP</th>
                         <th>Keterangan</th>
                         <th>Aksi</th>
@@ -413,8 +450,8 @@ function hitung_pengeluaran ($id, $tanggal, $dari)
                         <th>Dari</th>
                         <th>Kepada</th>
                         <th>Penerimaan</th>
-                        <th>Petugas</th>
-                        <th>Penerima</th>
+                        <th>Petugas Pengirim</th>
+                        <th>Petugas Penerima</th>
                         <th>No. HP</th>
                         <th>Keterangan</th>
                         <th>Aksi</th>
@@ -515,7 +552,21 @@ function hitung_pengeluaran ($id, $tanggal, $dari)
             $('#dari-provinsi-edit').select2({
                 dropdownParent: $('#edit-transaksi-kabupaten')
             });
+            $('#kepada-kabupaten').select2({
+                dropdownParent: $('#tambah-transaksi-kabupaten')
+            });
+            $('#kepada-kabupaten-edit').select2({
+                dropdownParent: $('#edit-transaksi-kabupaten')
+            });
         });
+
+        function confirmation(){
+            if(confirm('Cek kembali data penerimaan stok vaksin, apakah sudah benar?')){
+                document.getElementById('delete-form').submit();
+            }else{
+                return false;
+            }
+        }
 
         function editFunc(id) {
             $.ajax({
@@ -551,8 +602,8 @@ function hitung_pengeluaran ($id, $tanggal, $dari)
                     $('[name="tanggal-transaksi-edit"]').val(response.tanggal);
                     $('[name="id-kabupaten-edit"]').val(response.data['id']);
                     $('[name="dokumen-kabupaten-edit"]').val(response.data['dokumen']);
-                    $('[name="kepada-kabupaten-edit"]').val(response.data['kepada']);
                     $('[name="penerimaan-kabupaten-edit"]').val(response.data['penerimaan']);
+                    $('[name="penerimaan-kabupaten-edit-ori"]').val(response.data['penerimaan']);
                     $('[name="petugas-kabupaten-edit"]').val(response.data['petugas']);
                     $('[name="penerima-kabupaten-edit"]').val(response.data['penerima']);
                     $('[name="hp-kabupaten-edit"]').val(response.data['hp']);

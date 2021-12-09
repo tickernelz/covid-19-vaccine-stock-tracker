@@ -31,7 +31,7 @@
                 <div class="inner">
                     <h3>{{ number_format($penerimaan, 0, ',' , '.') }}</h3>
 
-                    <p>Penerimaan Bulan Ini</p>
+                    <p>Penerimaan Bulan {{ \Carbon\Carbon::now()->formatLocalized('%B %Y') }}</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-fw fa-arrow-down"></i>
@@ -46,7 +46,7 @@
                 <div class="inner">
                     <h3>{{ number_format($pengeluaran, 0, ',' , '.') }}</h3>
 
-                    <p>Pengeluaran Bulan Ini</p>
+                    <p>Pengeluaran Bulan {{ \Carbon\Carbon::now()->formatLocalized('%B %Y') }}</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-fw fa-arrow-up"></i>
@@ -61,7 +61,7 @@
                 <div class="inner">
                     <h3>{{ number_format($sisa, 0, ',' , '.') }}</h3>
 
-                    <p>Sisa Stok Bulan Ini</p>
+                    <p>Sisa Stok Bulan {{ \Carbon\Carbon::now()->formatLocalized('%B %Y') }}</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-fw fa-boxes"></i>

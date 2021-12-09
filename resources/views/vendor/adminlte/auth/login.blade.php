@@ -24,6 +24,14 @@
     <form action="{{ route('post-login') }}" method="post">
         {{ csrf_field() }}
 
+        @if (Session::has('error'))
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-ban"></i> Error!</h5>
+                {{ Session::get('error') }}
+            </div>
+        @endif
+
         {{-- Email field --}}
         <div class="input-group mb-3">
             <input type="text" name="username" class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}"

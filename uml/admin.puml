@@ -1,0 +1,25 @@
+@startuml
+skinparam packageStyle rectangle
+actor admin
+usecase "Login" as Login
+rectangle "Kelola Pengguna" {
+  admin -- (Fitur Pengguna)
+  usecase "Tambah" as Tambah1
+  usecase "Ubah" as Ubah1
+  usecase "Hapus" as Hapus1
+  (Fitur Pengguna) ..> Login : include
+  Tambah1 ..> (Fitur Pengguna) : extends
+  Ubah1 ..> (Fitur Pengguna) : extends
+  Hapus1 ..> (Fitur Pengguna) : extends
+}
+rectangle "Kelola Jenis Vaksin" {
+  admin -- (Fitur Jenis Vaksin)
+  usecase "Tambah" as Tambah2
+  usecase "Ubah" as Ubah2
+  usecase "Hapus" as Hapus2
+  (Fitur Jenis Vaksin) ..> Login : include
+  Tambah2 ..> (Fitur Jenis Vaksin) : extends
+  Ubah2 ..> (Fitur Jenis Vaksin) : extends
+  Hapus2 ..> (Fitur Jenis Vaksin) : extends
+}
+@enduml
